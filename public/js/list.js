@@ -1,4 +1,3 @@
-
 $(document).on('click', '._delete', (e) => {
     let $this = $(e.currentTarget)
     let id = $this.attr('id')
@@ -10,7 +9,7 @@ $(document).on('click', '._delete', (e) => {
                 text: 'Sim',
                 class: 'success',
                 callback: () => {
-                    window.location.replace(SITE_URL+'/usuarios/delete/'+id);
+                    window.location.replace(`${SITE_URL}/${MODULE}/delete/${id}`);
                 }
             },
 
@@ -18,7 +17,7 @@ $(document).on('click', '._delete', (e) => {
                 text: 'Não',
                 class: 'danger',
                 callback: () => {
-                    alert('not')
+                    //Algo...
                 }
             }
         }
