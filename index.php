@@ -1,5 +1,11 @@
 <?php
 /**
+ * Start session
+ */
+if(!isset($_SESSION)){
+    session_start();
+}
+/**
  * Ponto inicial do projeto, index.php responsável por instanciar e chamar
  * tudo o que será necessário para o funcionamento correto desse mini framework.
  *

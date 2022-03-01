@@ -1,5 +1,7 @@
 <?php
 namespace App\system\http;
+use MongoDB\Driver\Session;
+
 /**
  * Classe responsável pelo gerenciamento das respostas do servidor
  * @author Renan Salustiano <renansalustiano2020@gmail.com>
@@ -100,7 +102,7 @@ class Response{
     public function sendResponse(){
         $this->sendHeaders();
         switch ($this->contentType){
-            case 'html/text':
+            case 'text/html':
                 echo $this->content;
                 exit;
             case 'application/json':
@@ -108,6 +110,15 @@ class Response{
                 echo json_encode($this->content, JSON_UNESCAPED_UNICODE);
                 exit;
         }
+    }
+
+    public function redirect($route,$message = [], $oldData = []){
+        if(!empty($message))
+            \App\system\Utils\Session::setFlashData("message", $message);
+        if(!empty($oldData))
+            \App\system\Utils\Session::setFlashData("oldData", $oldData);
+
+        header('Location: '.SITE_URL.$route);
     }
 
 }

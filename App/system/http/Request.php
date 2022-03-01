@@ -40,34 +40,6 @@ class Request{
         }
         return $uri;
     }
-//
-//    /**
-//     * Método responsável por explodir a url requisitada
-//     * @return array
-//     */
-//    private function explodeUri() : array{
-//        $explodedUri = explode('/', $this->requestedUri);
-//        $explodedUri = array_filter($explodedUri);
-//        return $explodedUri;
-//    }
-//
-//    /**
-//     * Método responsável por setar argumentos necessários: Controller/Action/[Params]
-//     * @param array $explodedUri
-//     */
-//    private function setRequiredArgs(array $explodedUri){
-//
-//        if(empty($explodedUri[1])){
-//            $explodedUri[1] = DEFAULT_ACTION;
-//        }
-//
-//        list($this->controller, $this->action) = $explodedUri;
-//        if(count($explodedUri) > 2){
-//            unset($explodedUri[0]);
-//            unset($explodedUri[1]);
-//            $this->params = array_values($explodedUri);
-//        }
-//    }
 
     /**
      * Método responsável por retornar todos ou 1 parâmetros especifico do tipo GET
@@ -75,6 +47,9 @@ class Request{
      * @return mixed|null
      */
     public function getGetParams(string $paramName = null){
+        if(isset($this->getParams[$paramName]) && !empty($this->getParams[$paramName]))
+            return $this->getParams[$paramName];
+        return null;
         return $this->getParams[$paramName] ?? $this->getParams;
     }
 
@@ -84,6 +59,11 @@ class Request{
      * @return mixed|null
      */
     public function getPostParams(string $paramName = null){
+        if(!empty($paramName)){
+            if(isset($this->postParams[$paramName]) && !empty($this->postParams[$paramName]))
+                return $this->postParams[$paramName];
+            return null;
+        }
         return $this->postParams[$paramName] ?? $this->postParams;
     }
 

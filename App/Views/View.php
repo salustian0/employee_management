@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Views;
+use App\system\Utils\Session;
+
 /**
  * Classe responsável pelo gerenciamento das views
  * @author Renan Salustiano <renansalustiano2020@gmail.com>
@@ -34,6 +36,10 @@ class View
      */
     private $page;
 
+    private $messages;
+
+    private $jsVars = [];
+
     /**
      * Caminhos das pastas Templates/Pages
      */
@@ -49,7 +55,14 @@ class View
         if ($applyDefaults) {
             $this->setTemplate('default_template');
             $this->setCssFile('estilos.css');
+            $this->setJsFile('main.js');
+            $this->setJsVar('const', 'SITE_URL', SITE_URL);
         }
+
+        /**
+         * mensagens vindas da última request
+         */
+        $this->messages = Session::getFlashData('message');
     }
 
     /**
@@ -131,9 +144,32 @@ class View
      * Echo no  valor da variável caso exista senão retorna 'null'
      * @param string $varName
      */
-    public function showOrNull(string $varName): void
+    public function showOrNull(string $varName, $echo = true)
     {
-        echo(isset($this->vars[$varName]) ? $this->vars[$varName] : null);
+        $indexes = explode('.',$varName);
+
+        if(!empty($indexes)){
+            $value = null;
+            foreach ($indexes as $index){
+
+                if($value === null){
+                    $value  = $this->vars[$index] ?? [];
+                }else{
+                    $value = $value[$index] ?? [];
+                }
+
+                if(!empty($value)){
+                    continue;
+                }
+                $value = null;
+                break;
+            }
+            if($echo){
+                echo $value;
+            }else{
+                return $value;
+            }
+        }
     }
 
     /**
@@ -169,5 +205,76 @@ class View
             require_once $path;
             echo PHP_EOL;
         }
+    }
+
+    /**
+     *
+     * @param $route
+     * @return string
+     */
+    private function siteUrl($route){
+        echo  SITE_URL.$route;
+    }
+
+    /**
+     * @param $varName
+     * @return string|null
+     */
+    private function getType($varName){
+        return isset($this->vars[$varName]) ? gettype($this->vars[$varName]) : null;
+    }
+
+
+    private function renderMessages() : void{
+        if(!empty($this->messages)){
+            foreach ($this->messages as $type => $arrMessages){
+                foreach ($arrMessages as $message_string){
+                    echo "<div class='message {$type}'>{$message_string}</div>".PHP_EOL;
+                }
+            }
+        }
+    }
+
+    /**
+     * Variaveis que serão utilizadas no javascript
+     * @param $type
+     * @param $name
+     * @param $value
+     * @return false|void
+     */
+    private function setJsVar($type, $name, $value){
+        $patternName = '/[a-zA-Z0-9_-]/';
+        if(!in_array($type, ['let', 'const', 'var']) || !preg_match($patternName, $name)){
+            return false;
+        }
+
+        $this->jsVars[$name] = array(
+            'type' => $type,
+            'value' => $value
+        );
+    }
+
+    /**
+     * Renderiza variáveis criadas
+     */
+    private function renderJsVars(){
+        $script = "<script type='text/javascript'>";
+        foreach ($this->jsVars as $name => $var){
+            $value = $var['value'];
+            switch ($value){
+                case is_numeric($value):
+                    $value = intval($var['value']).";";
+                    break;
+                case is_array($value):
+                    $value = json_encode($value, JSON_UNESCAPED_UNICODE);
+                    break;
+                default:
+                    $value = "'".$var['value']."';";
+                    break;
+            }
+            $script .= PHP_EOL.$var['type']." ". $name." = ". $value;
+        }
+        $script .= PHP_EOL."</script>";
+        echo $script;
     }
 }

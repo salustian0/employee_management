@@ -13,6 +13,8 @@
 </head>
 <body>
 
+
+
 <div class="main-container">
     <header class="main-header">
         <div class="logo">
@@ -22,6 +24,9 @@
     </header>
 
     <main class="page-content">
+        <div class="messages">
+            <?php $this->renderMessages() ?>
+        </div>
         <?php $this->renderPage(); ?>
     </main>
 
@@ -29,8 +34,9 @@
         <p>Desenvolvido por Renan Salustiano - renansalustiano2020@gmail.com </p>
     </footer>
 </div>
-
-<?php $this->renderJsFiles(); ?>
+<script type="text/javascript" src="<?php $this->siteUrl('/public/js/jquery-3.6.0.min.js') ?>"></script>
 <script src="https://kit.fontawesome.com/27e19d0aae.js" crossorigin="anonymous"></script>
+<?php $this->renderJsFiles(); ?>
+<?php $this->renderJsVars(); ?>
 </body>
 </html>

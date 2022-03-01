@@ -51,7 +51,7 @@ class Router
      */
     private function registerRoute($type, $path, Closure $closure, bool $api)
     {
-        $path = '/^' . str_replace('/', '\/', $path) . '$/';
+        $path = '/^' . str_replace('/', '\/', $path) . '\/?$/';
         $patternParams = '/{(.+?)}/';
         $requiredParams = [];
         if (preg_match_all($patternParams, $path, $matches)) {
@@ -108,10 +108,14 @@ class Router
 
                     foreach ($reflection->getParameters() as $parameter){
                         $paramName = $parameter->getName();
+                        if($parameter->getClass() && $parameter->getClass()->getName() == get_class($this->request)){
+                            $arrParams[$paramName] = $this->request;
+                            continue;
+                        }
                         $arrParams[$paramName] = $route['params'][$paramName] ?? '';
                     }
 
-                    if(count($route['params']) !== $reflection->getNumberOfRequiredParameters()){
+                    if(count($arrParams) !== $reflection->getNumberOfRequiredParameters()){
                         throw new Exception('Parâmetros informados incorretamente', 422);
                     }
 
