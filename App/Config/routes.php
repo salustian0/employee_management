@@ -35,3 +35,45 @@ $router->addGetRoute('usuarios/atualizar/{idUser}', function($idUser){
 $router->addGetRoute('usuarios/delete/{idUser}', function($idUser){
     return Ctrl\User::delete($idUser);
 });
+
+
+$router->addGetRoute('home', function(){
+    return  Ctrl\Home::index();
+});
+
+/* Rotas de login */
+$router->addGetRoute('login', function(){
+    return  Ctrl\Login::login();
+});
+
+$router->addPostRoute('autenticar', function(Request $request){
+    return  Ctrl\Login::auth($request);
+});
+
+
+/*Logout*/
+$router->addGetRoute('logout', function(){
+    return  Ctrl\Login::logout();
+});
+
+/* rotas de funcionários */
+
+$router->addGetRoute('funcionarios', function(){
+    return Ctrl\Employee::list();
+});
+
+$router->addGetRoute('funcionarios/form', function(){
+    return Ctrl\Employee::form();
+});
+
+$router->addPostRoute('funcionarios/registrar', function(Request $request){
+    return Ctrl\Employee::register($request);
+});
+
+$router->addGetRoute('funcionarios/atualizar/{idEmployee}', function($idEmployee){
+    return Ctrl\Employee::form($idEmployee);
+});
+
+$router->addGetRoute('funcionarios/delete/{idEmployee}', function($idEmployee){
+    return Ctrl\Employee::delete($idEmployee);
+});
