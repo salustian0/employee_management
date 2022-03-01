@@ -13,6 +13,25 @@ $router->addGetRoute('/', function(){
     return Ctrl\Home::index();
 });
 
-$router->addGetRoute('testeapi', function (Request $request){
-    return Ctrl\Api\Home::index($request);
-}, true);
+/**
+ * Rotas usuários
+ */
+$router->addGetRoute('usuarios', function(Request $request){
+    return Ctrl\User::list($request);
+});
+
+$router->addGetRoute('usuarios/form', function(){
+    return Ctrl\User::form();
+});
+
+$router->addPostRoute('usuarios/registrar', function(Request $request){
+    return Ctrl\User::register($request);
+});
+
+$router->addGetRoute('usuarios/atualizar/{idUser}', function($idUser){
+    return Ctrl\User::form($idUser);
+});
+
+$router->addGetRoute('usuarios/delete/{idUser}', function($idUser){
+    return Ctrl\User::delete($idUser);
+});
