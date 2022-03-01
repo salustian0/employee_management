@@ -22,7 +22,7 @@ class UserModel extends Connection
      * @param string $username
      * @return UserEntity
      */
-    public function getUserByUsername(string $username) : UserEntity{
+    public function getUserByUsername(string $username){
         $query = "SELECT u.* FROM users u WHERE u.username = :username";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(":username", $username, PDO::PARAM_STR);

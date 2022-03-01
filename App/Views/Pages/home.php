@@ -1,3 +1,3 @@
 <section class="page-section">
-    Tela inicial!
+    Bem vindo(a) ...
 </section>

@@ -1,19 +1,16 @@
 <?php
 namespace App\Controllers;
-use App\Models\HomeModel;
-use App\system\http\Request;
+
 use App\system\http\Response;
+use App\system\Utils\Session;
 use App\Views\View;
 
-class Home extends BaseController {
+class Home{
 
-    /**
-     * Página inicial
-     */
     static function index(){
-        $model = new HomeModel();
-
+        Login::verifyAuth();
         $view = new View();
-        $view->render("home");
+        $view->render('home');
     }
+
 }

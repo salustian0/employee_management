@@ -15,7 +15,7 @@ class User
 
     static function form($idUser = null)
     {
-
+        Login::verifyAuth();
         /**
          * Valida id do usuário caso informado
          */
@@ -82,6 +82,8 @@ class User
 
     static function list()
     {
+        Login::verifyAuth();
+
         $vars = [];
         $view = new View();
         $userModel = new UserModel();
@@ -100,7 +102,8 @@ class User
         /**
          * render view
          */
-        $view->setJsFile('user/list.js');
+        $view->setJsFile('list.js');
+        $view->setJsVar('const','MODULE', 'usuarios');
         $view->render('user/list', $vars);
     }
 
@@ -110,6 +113,8 @@ class User
      */
     static function register(Request $request)
     {
+        Login::verifyAuth();
+
         $response = new Response();
         /**
          * id (caso seja update)
@@ -154,6 +159,11 @@ class User
             /**
              * Realizando update
              */
+
+            if($userEntity->getPassword() !== null){
+                $userEntity->setPassword(password_hash($userEntity->getPassword(), PASSWORD_DEFAULT));
+            }
+
             if ($userModel->updateUser($userEntity)) {
                 $messages = array('success' => array('Usuário alterado com sucesso'));
 
@@ -180,6 +190,9 @@ class User
             /**
              * Realizando a inclusão de usuario
              */
+
+            $userEntity->setPassword(password_hash($userEntity->getPassword(), PASSWORD_DEFAULT));
+
             if ($userModel->addUser($userEntity)) {
                 $messages = array("success" => array("usuário criado com sucesso!"));
                 return $response->redirect('/usuarios', $messages);
@@ -198,6 +211,8 @@ class User
      */
     private static function validateRegister(UserEntity $userEntity, array $options)
     {
+        Login::verifyAuth();
+
         $errors = array();
 
         if ($userEntity->getUsername() === null) {
@@ -234,6 +249,8 @@ class User
      */
     private static function validateUpdate(UserEntity $userEntity, array $options)
     {
+        Login::verifyAuth();
+
         $errors = array();
 
         if ($userEntity->getUsername() === null) {
@@ -267,6 +284,8 @@ class User
      */
     static function delete($idUser)
     {
+        Login::verifyAuth();
+
         $response = new Response();
         /**
          * Valida o parâmetro informado
