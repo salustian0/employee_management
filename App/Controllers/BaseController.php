@@ -1,10 +1,8 @@
 <?php
 namespace App\Controllers;
-
 use App\Views\View;
 
 class BaseController{
-
     /**
      * @param $code
      * @param null $message

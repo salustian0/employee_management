@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\system\http\Request;
 use App\system\http\Response;
 use App\system\Utils\Session;
 use App\Views\View;

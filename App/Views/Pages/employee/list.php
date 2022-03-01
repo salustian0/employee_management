@@ -1,3 +1,6 @@
+<?php
+    use App\system\Utils;
+?>
 <div class="box">
     <header class="w-30">
         <h3 class="title">Listagem de funcionários</h3>
@@ -21,11 +24,11 @@
                 <?php foreach ($list as $entity): ?>
                     <tr>
                         <td>#<?php echo $entity->getId(); ?></td>
-                        <td><?php echo \App\system\Utils\Security::securityString($entity->getName()); ?></td>
-                        <td><?php echo \App\system\Utils\Security::securityString($entity->getCpf()); ?></td>
-                        <td><?php echo \App\system\Utils\Security::securityString($entity->getOffice()); ?></td>
-                        <td><?php echo \App\system\Utils\Security::securityString($entity->getEmail()); ?></td>
-                        <td><?php echo \App\system\Utils\Security::securityString($entity->getCreatedAt()); ?></td>
+                        <td><?php echo Utils\Security::securityString($entity->getName()); ?></td>
+                        <td><?php echo Utils\Security::securityString($entity->getCpf()); ?></td>
+                        <td><?php echo Utils\Security::securityString($entity->getOffice()); ?></td>
+                        <td><?php echo Utils\Security::securityString($entity->getEmail()); ?></td>
+                        <td><?php echo Utils\Utils::formatDate(Utils\Security::securityString($entity->getCreatedAt())); ?></td>
                         <td class="flex-td">
                             <a href="<?php $this->siteUrl("/funcionarios/atualizar/{$entity->getId()}") ?>"
                                class="sys-btn info w-auto"><i class="fas fa-edit"></i>Editar</a>

@@ -3,7 +3,7 @@ namespace App\system\Utils;
 
 class Security{
 
-    static function securityString(string $string){
+    static function securityString( $string){
         $string = htmlentities($string);
         $string = htmlspecialchars($string);
         $string = filter_var($string, FILTER_SANITIZE_STRING);

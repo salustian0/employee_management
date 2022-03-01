@@ -3,9 +3,7 @@
 namespace App\Controllers;
 
 use App\Entity\EmployeeEntity;
-use App\Entity\UserEntity;
 use App\Models\EmployeeModel;
-use App\Models\UserModel;
 use App\system\http\Request;
 use App\system\http\Response;
 use App\system\Utils\Security;

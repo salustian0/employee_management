@@ -24,7 +24,7 @@
         <?php if($logged):?>
         <div class="user-options">
             <div class="button">
-            <span>Bem vindo(a) - <?php echo $_USER['username']; ?></span>
+            <span><?php echo $_USER['username']; ?></span>
             </div>
             <ul>
                <li><a href="<?php $this->siteUrl('/logout')?>">Sair</a></li>
@@ -37,11 +37,16 @@
         <?php if($logged) :?>
         <aside class="side-menu">
             <ul>
+
+                <?php if($_USER['access'] == "ADM"):?>
                 <li><a href="<?php $this->siteUrl('/usuarios') ?>"><i class="fas fa-table"></i>Listagem Usuarios</a></li>
                 <li><a href="<?php $this->siteUrl('/usuarios/form') ?>"><i class="fas fa-plus"></i>Registro de usuários</a></li>
+                <?php endif;?>
+
                 <li><a href="<?php $this->siteUrl('/funcionarios') ?>"><i class="fas fa-users"></i>Listagem de Funcionários</a></li>
                 <li><a href="<?php $this->siteUrl('/funcionarios/form') ?>"><i class="fas fa-plus"></i>Registro de funcionários</a></li>
-                <li><a href="<?php $this->siteUrl('/usuarios/form') ?>"><i class="fas fa-clock"></i>Registro de ponto de funcionario</a></li>
+                <li><a href="<?php $this->siteUrl('/ponto') ?>"><i class="fas fa-clock"></i>Listagem de pontos de funcionários</a></li>
+                <li><a href="<?php $this->siteUrl('/ponto/form') ?>"><i class="fas fa-clock"></i>Registro de ponto de funcionario</a></li>
 
             </ul>
         </aside>

@@ -53,10 +53,10 @@ class EmployeeModel extends Connection
      * @return EmployeeEntity[]
      */
     public function getAllEmployees(){
-        $query = "SELECT * FROM employees";
+        $query = "SELECT e.id as idIndex, e.* FROM employees e";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS, EmployeeEntity::class);
+        return $stmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_UNIQUE, EmployeeEntity::class);
     }
 
     /**

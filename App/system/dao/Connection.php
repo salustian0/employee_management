@@ -100,7 +100,6 @@ abstract class Connection
         $this->statement = $this->pdo->prepare($query);
 
         foreach ($arrEntity as $key => $value){
-            echo $key;
             if(is_array($value) && isset($value['type'])){
                 $this->statement->bindValue(":{$key}" , $value['value'], $value['type']);
                 continue;

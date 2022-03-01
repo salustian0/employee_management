@@ -63,7 +63,7 @@ class Login{
             $session = array(
                 'id' =>  $dbUserEntity->getId(),
                 'username' => $dbUserEntity->getUsername(),
-                'access' => $dbUserEntity->getUsername()
+                'access' => $dbUserEntity->getAccess()
             );
 
             Session::setSession('_USER', $session);

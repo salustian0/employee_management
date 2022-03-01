@@ -16,6 +16,10 @@ class User
     static function form($idUser = null)
     {
         Login::verifyAuth();
+        if(Session::getSession('_USER')['access'] != 'ADM'){
+            return (new Response())->redirect('/home', array('warning' => array('Você não tem permissão para acessar o módulo de usuários')));
+        }
+
         /**
          * Valida id do usuário caso informado
          */
@@ -83,7 +87,9 @@ class User
     static function list()
     {
         Login::verifyAuth();
-
+        if(Session::getSession('_USER')['access'] != 'ADM'){
+            return (new Response())->redirect('/home', array('warning' => array('Você não tem permissão para acessar o módulo de usuários')));
+        }
         $vars = [];
         $view = new View();
         $userModel = new UserModel();
@@ -114,7 +120,9 @@ class User
     static function register(Request $request)
     {
         Login::verifyAuth();
-
+        if(Session::getSession('_USER')['access'] != 'ADM'){
+            return (new Response())->redirect('/home', array('warning' => array('Você não tem permissão para acessar o módulo de usuários')));
+        }
         $response = new Response();
         /**
          * id (caso seja update)
@@ -212,7 +220,9 @@ class User
     private static function validateRegister(UserEntity $userEntity, array $options)
     {
         Login::verifyAuth();
-
+        if(Session::getSession('_USER')['access'] != 'ADM'){
+            return (new Response())->redirect('/home', array('warning' => array('Você não tem permissão para acessar o módulo de usuários')));
+        }
         $errors = array();
 
         if ($userEntity->getUsername() === null) {
@@ -250,7 +260,9 @@ class User
     private static function validateUpdate(UserEntity $userEntity, array $options)
     {
         Login::verifyAuth();
-
+        if(Session::getSession('_USER')['access'] != 'ADM'){
+            return (new Response())->redirect('/home', array('warning' => array('Você não tem permissão para acessar o módulo de usuários')));
+        }
         $errors = array();
 
         if ($userEntity->getUsername() === null) {
@@ -285,7 +297,9 @@ class User
     static function delete($idUser)
     {
         Login::verifyAuth();
-
+        if(Session::getSession('_USER')['access'] != 'ADM'){
+            return (new Response())->redirect('/home', array('warning' => array('Você não tem permissão para acessar o módulo de usuários')));
+        }
         $response = new Response();
         /**
          * Valida o parâmetro informado

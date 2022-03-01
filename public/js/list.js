@@ -23,3 +23,8 @@ $(document).on('click', '._delete', (e) => {
         }
     })
 })
+
+$(document).on('click', '#clearFilters',(e) =>{
+    e.preventDefault();
+    window.location.replace(`${SITE_URL}/${MODULE}`);
+})

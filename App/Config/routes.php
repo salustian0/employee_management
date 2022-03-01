@@ -77,3 +77,25 @@ $router->addGetRoute('funcionarios/atualizar/{idEmployee}', function($idEmployee
 $router->addGetRoute('funcionarios/delete/{idEmployee}', function($idEmployee){
     return Ctrl\Employee::delete($idEmployee);
 });
+
+/* rotas de time */
+
+$router->addGetRoute('ponto', function(Request $request){
+    return Ctrl\Time::list($request);
+});
+
+$router->addGetRoute('ponto/form', function(){
+    return Ctrl\Time::form();
+});
+
+$router->addPostRoute('ponto/registrar', function(Request $request){
+    return Ctrl\Time::register($request);
+});
+
+$router->addGetRoute('ponto/atualizar/{idTime}', function($idTime){
+    return Ctrl\Time::form($idTime);
+});
+
+$router->addGetRoute('ponto/delete/{idTime}', function($idTime){
+    return Ctrl\Time::delete($idTime);
+});
