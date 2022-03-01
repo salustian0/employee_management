@@ -48,7 +48,7 @@ abstract class Connection
     /**
      * Atualização de dados
      * @param $arrParams
-     * @return PDOStatement
+     * @return bool
      */
     protected function update($entity, $where){
         $arrEntity = $this->convertEntityToArray($entity);

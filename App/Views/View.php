@@ -63,6 +63,8 @@ class View
          * mensagens vindas da última request
          */
         $this->messages = Session::getFlashData('message');
+        $this->vars['logged'] = Session::verifySession();
+        $this->vars['_USER'] = Session::getSession('_USER');
     }
 
     /**
@@ -242,7 +244,7 @@ class View
      * @param $value
      * @return false|void
      */
-    private function setJsVar($type, $name, $value){
+    public function setJsVar($type, $name, $value){
         $patternName = '/[a-zA-Z0-9_-]/';
         if(!in_array($type, ['let', 'const', 'var']) || !preg_match($patternName, $name)){
             return false;

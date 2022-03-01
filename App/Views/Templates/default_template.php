@@ -21,14 +21,43 @@
             <i class="fa-brands fa-php"></i>
             <span>My software</span>
         </div>
+        <?php if($logged):?>
+        <div class="user-options">
+            <div class="button">
+            <span>Bem vindo(a) - <?php echo $_USER['username']; ?></span>
+            </div>
+            <ul>
+               <li><a href="<?php $this->siteUrl('/logout')?>">Sair</a></li>
+            </ul>
+        </div>
+        <?php endif;?>
     </header>
 
-    <main class="page-content">
-        <div class="messages">
-            <?php $this->renderMessages() ?>
-        </div>
-        <?php $this->renderPage(); ?>
-    </main>
+    <div class="center-container">
+        <?php if($logged) :?>
+        <aside class="side-menu">
+            <ul>
+                <li><a href="<?php $this->siteUrl('/usuarios') ?>"><i class="fas fa-table"></i>Listagem Usuarios</a></li>
+                <li><a href="<?php $this->siteUrl('/usuarios/form') ?>"><i class="fas fa-plus"></i>Registro de usuários</a></li>
+                <li><a href="<?php $this->siteUrl('/funcionarios') ?>"><i class="fas fa-users"></i>Listagem de Funcionários</a></li>
+                <li><a href="<?php $this->siteUrl('/funcionarios/form') ?>"><i class="fas fa-plus"></i>Registro de funcionários</a></li>
+                <li><a href="<?php $this->siteUrl('/usuarios/form') ?>"><i class="fas fa-clock"></i>Registro de ponto de funcionario</a></li>
+
+            </ul>
+        </aside>
+        <?php endif;?>
+
+
+        <main class="page-content <?php echo ($logged ?  'logged' : ''); ?>">
+            <?php if(!empty($this->messages)) :?>
+            <div class="messages">
+                <?php $this->renderMessages() ?>
+            </div>
+            <?php endif;?>
+            <?php $this->renderPage(); ?>
+        </main>
+    </div>
+
 
     <footer class="main-footer">
         <p>Desenvolvido por Renan Salustiano - renansalustiano2020@gmail.com </p>

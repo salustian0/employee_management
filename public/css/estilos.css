@@ -31,11 +31,15 @@ body{
     height: auto;
     min-height: 100vh;
     padding: 15px;
-    margin: 15px auto;
+    margin: auto;
 }
 
+.page-content.logged{
+    margin-left: 300px;
+    width: calc(100% - 300px);
+}
 .page-section{
-    background-color: var(--secondary-color);
+    background-color: #fff;
     min-height: 200px;
     height: auto;
     padding: 15px;
@@ -151,12 +155,16 @@ body{
     background-color: var(--primary-color);
     min-height: 50px;
     padding: 0 30px;
+    position: relative;
+    bottom: 0;
     color: #FEF9FF;
 }
 .main-header{
     position: sticky;
     top: 0;
     left: 0;
+    display: flex;
+    justify-content: space-between;
 }
 .main-footer{
     display: flex;
@@ -184,16 +192,14 @@ body{
 }
 
 
+
 .box{
-    display: flex;
-    min-width: 500px;
-}
-.box{
-    background-color: var(--secondary-color);
     display: flex;
     box-shadow: var(--default-box-shadow);
     border-radius: 3px;
     min-height: 300px;
+    background-color: #fff;
+
 }
 .box > header{
     width: 50%;
@@ -214,7 +220,7 @@ body{
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 15px;
+    margin-bottom: 15px;
 }
 .message{
     width: 500px;
@@ -388,4 +394,113 @@ body.overflow-hidden{
 
 .message-dialog > footer .sys-btn:not(:last-child){
     margin-right: 15px;
+}
+
+.side-menu{
+    width: 300px;
+    background-color: #fff;
+    top: 50px;
+    left: 0;
+    position: fixed;
+    height: 100vh;
+    box-shadow: var(--default-box-shadow);
+    padding-top: 30px;
+}
+.side-menu > ul{
+    width: 100%;
+}
+.center-container{
+    display: flex;
+}
+
+.side-menu ul {
+    display: flex;
+    flex-direction: column;
+}
+.side-menu > ul li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.side-menu > ul a{
+    width: 100%;
+    text-align: center;
+    color: var(--primary-color);
+    font-weight: 600;
+    transition: all .5s;
+    padding: 10px;
+}
+.side-menu > ul li:not(:last-child){
+    margin-bottom: 8px;
+}
+.side-menu > ul a:hover{
+    color: rgba(0,0,0,.5);
+    background-color: rgba(0,0,0,.1);;
+}
+
+.side-menu > ul a> i{
+    margin-right: 10px;
+}
+
+.user-options{
+    width: 200px;
+    font-weight: 600;
+    font-size: 11pt;
+    transition: all .5s;
+}
+.user-options:hover{
+    background-color: #fff;
+    color: var(--primary-color);
+    box-shadow: var(--default-box-shadow);
+    cursor: pointer;
+}
+.user-options:hover > ul{
+    opacity: 1;
+    transition: all .5s;
+}
+.user-options > ul{
+    opacity: 0;
+    height: auto;
+    position: absolute;
+    top: 100%;
+    background-color: #fff;
+    width: 200px;
+}
+.user-options > .button{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 5px;
+}
+.user-options > .button:after{
+    content: "";
+    width: 80%;
+    height: 1px;
+    background-color: var(--primary-color);
+    position: absolute;
+    bottom: 0;
+}
+.user-options > ul{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+.user-options ul li{
+    display: flex;
+    justify-content: center;
+}
+.user-options ul li a{
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    color: var(--primary-color);
+    transition: all .5s;
+
+}
+.user-options ul li a:hover{
+    background-color: var(--primary-color);
+    color: #fff;
 }
