@@ -104,26 +104,22 @@ class Router
                 $reflection = new ReflectionFunction($route['closure']);
                 $arrParams = [];
 
-                if($route['api'] === false){
 
-                    foreach ($reflection->getParameters() as $parameter){
-                        $paramName = $parameter->getName();
-                        if($parameter->getClass() && $parameter->getClass()->getName() == get_class($this->request)){
-                            $arrParams[$paramName] = $this->request;
-                            continue;
-                        }
-                        $arrParams[$paramName] = $route['params'][$paramName] ?? '';
-                    }
-
-                    if(count($arrParams) !== $reflection->getNumberOfRequiredParameters()){
-                        throw new Exception('Parâmetros informados incorretamente', 422);
-                    }
-
-                }else
-                {
-                    $arrParams['request'] = $this->request;
+                foreach ($reflection->getParameters() as $parameter){
+                    $paramName = $parameter->getName();
+                    $arrParams[$paramName] = $route['params'][$paramName] ?? '';
                 }
 
+                if(count($arrParams) !== $reflection->getNumberOfRequiredParameters()){
+                    throw new Exception('Parâmetros informados incorretamente', 422);
+                }
+
+
+
+                /**
+                 * Sempre passar a request
+                 */
+                $arrParams['request'] = $this->request;
                 return call_user_func_array($route['closure'], $arrParams);
             }
         }catch(Exception $ex){
